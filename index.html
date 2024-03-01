@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Открытка для 8 Марта</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #ff69b4;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff69b4;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+            animation: confetti 1s ease-out infinite;
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotateZ(0); }
+            100% { transform: translateY(100vh) rotateZ(720deg); }
+        }
+        .fadeIn {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        #greetingCard {
+            display: none;
+            width: 200px;
+            height: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Открыть</h1>
+    <button class="button" onclick="showConfirmation()">Да</button>
+    <button class="button" id="noButton" onclick="moveButton()">Нет</button>
+
+    <div id="confirmationText">
+        <p>Вы точно хотите нажать?</p>
+    </div>
+
+    <div id="greeting" class="hidden">
+        <div id="greetingCard">
+            <p> Мерекелеріңізбен құрметті РПО4-22k тобынын кыздары</p>
+            <p>cіздерді шын жүрекпен құттықтай отыра 4 ші наурыз күні болатын мерекелі кешке шыкырамыз! 
+                адрес:Абая 30 караоке Bariton</p>
+        </div>
+        <div id="confettiContainer"></div>
+    </div>
+
+    <script>
+        var clickCount = 0;
+
+        function showConfirmation() {
+            clickCount++;
+            if (clickCount === 1) {
+                document.getElementById("confirmationText").innerHTML = "<p>Точно? :)</p>";
+            } else if (clickCount === 2) {
+                document.getElementById("confirmationText").innerHTML = "<p>Точно точно? ;)</p>";
+            } else if (clickCount === 3) {
+                document.getElementById("confirmationText").innerHTML = "<p>Точно точно точно? :D</p>";
+            } else {
+                var greetingDiv = document.getElementById("greeting");
+                var greetingCard = document.getElementById("greetingCard");
+                greetingDiv.classList.remove("hidden");
+                greetingDiv.classList.add("fadeIn");
+                greetingCard.style.display = "block";
+                createConfetti();
+            }
+        }
+
+        function createConfetti() {
+            var confettiContainer = document.getElementById("confettiContainer");
+            for (var i = 0; i < 50; i++) {
+                var confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        function moveButton() {
+            var noButton = document.getElementById("noButton");
+            var x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            var y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.position = "absolute";
+            noButton.style.left = x + "px";
+            noButton.style.top = y + "px";
+        }
+    </script>
+</body>
+</html>
